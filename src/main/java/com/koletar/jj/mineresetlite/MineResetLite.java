@@ -69,8 +69,8 @@ public class MineResetLite extends JavaPlugin {
 		MineResetLite.instance = this;
 		mines = new ArrayList<Mine>();
 		logger = getLogger();
-		logger.info("MRL was developed by Boomclaw under the Apache 2.0 license, but the project was abandoned and it is not maintained by the original creator anymore.");
-		logger.info("For any issues or suggestions, use this discussion thread: https://www.spigotmc.org/threads/333360/");
+		logger.info("MRL was first developed by someone who thought about abandoning the project would be an excellent idea, under Apache 2.0 license.");
+		logger.info("For any issues or suggestions, here it is the most updated discussion thread: https://www.spigotmc.org/threads/333360/");
 
 		if (!setupConfig()) {
 			logger.severe("Error while loading configuration.");

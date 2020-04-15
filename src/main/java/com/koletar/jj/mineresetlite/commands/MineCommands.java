@@ -191,7 +191,7 @@ public class MineCommands {
 		} catch (IncompleteRegionException e) {
 			e.printStackTrace();
 		}
-		if (p1 == null) {
+		if (world == null || p1 == null || p2 == null) {
 			player.sendMessage(phrase("emptySelection"));
 			return;
 		}

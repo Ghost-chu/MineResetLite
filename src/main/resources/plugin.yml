@@ -1,5 +1,5 @@
 name: MineResetLite
-version: Reremake-1.1.0
+version: ${version}
 api-version: 1.13
 main: com.koletar.jj.mineresetlite.MineResetLite
 author: Boomclaw
