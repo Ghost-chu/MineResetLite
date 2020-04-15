@@ -4,15 +4,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>xyz.boomclaw.plugins</groupId>
+	<groupId>com.koletar.jj</groupId>
 	<artifactId>mineresetlite</artifactId>
-	<version>Reremake-1.0.0</version>
+	<version>Reremake-1.1.0</version>
 	<name>MineResetLite</name>
 
 	<repositories>
 		<repository>
 			<id>spigotmc-repo</id>
 			<url>http://hub.spigotmc.org/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>worldedit-repo</id>
+			<url>http://maven.enginehub.org/repo/</url>
 		</repository>
 	</repositories>
 
@@ -24,11 +28,10 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.sk89q</groupId>
-			<artifactId>worldedit</artifactId>
+			<groupId>com.sk89q.worldedit</groupId>
+			<artifactId>worldedit-bukkit</artifactId>
 			<version>7.0.0-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/worldedit-bukkit-7.0.0-SNAPSHOT-dist.jar</systemPath>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
