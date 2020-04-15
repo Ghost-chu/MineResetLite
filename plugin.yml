@@ -1,0 +1,12 @@
+name: MineResetLite
+version: Reremake-1.1.0
+api-version: 1.13
+main: com.koletar.jj.mineresetlite.MineResetLite
+author: Boomclaw
+authors: [jjKoletar, VirtualByte, TWWSYesterday, Boomclaw, Ghost_chu]
+description: A lightweight solution for Mine management.
+softdepend: [Multiverse-Core, PrisonMines, Multiworld, WorldEdit]
+commands:
+  mineresetlite:
+    aliases: [mrl, mr, mine, minereset]
+    description: Manage mines.

@@ -1,8 +1,16 @@
 package com.koletar.jj.mineresetlite;
 
-import com.koletar.jj.mineresetlite.commands.MineCommands;
-import com.koletar.jj.mineresetlite.commands.PluginCommands;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -15,12 +23,9 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.util.*;
-import java.util.logging.Logger;
+import com.koletar.jj.mineresetlite.commands.MineCommands;
+import com.koletar.jj.mineresetlite.commands.PluginCommands;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
 /**
  * @author jjkoletar
@@ -30,7 +35,7 @@ public class MineResetLite extends JavaPlugin {
 	public List<Mine> mines;
 	private Logger logger;
 	private CommandManager commandManager;
-	//private WorldEditPlugin worldEdit = null;
+	private WorldEditPlugin worldEdit = null;
 	private int saveTaskId = -1;
 	private int resetTaskId = -1;
 
@@ -64,8 +69,8 @@ public class MineResetLite extends JavaPlugin {
 		MineResetLite.instance = this;
 		mines = new ArrayList<Mine>();
 		logger = getLogger();
-		Bukkit.getLogger().info("[MineResetLite] MRL is managed and developed by Boomclaw under the Apache 2.0 license.");
-		Bukkit.getLogger().info("[MineResetLite] For any issues or suggestions, use the Spigot discussion thread. Do not PM any of the developers.");
+		logger.info("MRL was developed by Boomclaw under the Apache 2.0 license, but the project was abandoned and it is not maintained by the original creator anymore.");
+		logger.info("For any issues or suggestions, use this discussion thread: https://www.spigotmc.org/threads/333360/");
 
 		if (!setupConfig()) {
 			logger.severe("Error while loading configuration.");
@@ -92,9 +97,10 @@ public class MineResetLite extends JavaPlugin {
 		}
 
 		// Look for worldedit
-//		if (getServer().getPluginManager().isPluginEnabled("WorldEdit")) {
-//			worldEdit = (WorldEditPlugin) getServer().getPluginManager().getPlugin("WorldEdit");
-//		}
+		if (getServer().getPluginManager().isPluginEnabled("WorldEdit")) {
+			worldEdit = (WorldEditPlugin) getServer().getPluginManager().getPlugin("WorldEdit");
+			logger.info("MRL hooked into WorldEdit API 7.0. Thanks to \"github.com/leothawne\".");
+		}
 
 		ConfigurationSerialization.registerClass(Mine.class);
 
@@ -192,9 +198,9 @@ public class MineResetLite extends JavaPlugin {
 	}
 
 	/**
-	 * Alert the plugin that changes have been made to mines, but wait 60
-	 * seconds before we save. This process saves on disk I/O by waiting until a
-	 * long string of changes have finished before writing to disk.
+	 * Alert the plugin that changes have been made
+	 * to the mines, and instantly save changes to disk
+	 * to avoid data loss due to random events.
 	 */
 	public void buffSave() {
 		BukkitScheduler scheduler = getServer().getScheduler();
@@ -207,11 +213,11 @@ public class MineResetLite extends JavaPlugin {
 		// Schedule save
 		final MineResetLite plugin = this;
 
-		scheduler.scheduleSyncDelayedTask(this, new Runnable() {
+		saveTaskId = scheduler.scheduleSyncDelayedTask(this, new Runnable() {
 			public void run() {
 				plugin.save();
 			}
-		}, 60 * 20L);
+		}, 0);
 	}
 
 	public void save() {
@@ -248,11 +254,11 @@ public class MineResetLite extends JavaPlugin {
 	}
 
 	public boolean hasWorldEdit() {
-		return false;
+		return getServer().getPluginManager().isPluginEnabled("WorldEdit");
 	}
 
 	public WorldEditPlugin getWorldEdit() {
-		return null;
+		return worldEdit;
 	}
 
 	private boolean setupConfig() {
