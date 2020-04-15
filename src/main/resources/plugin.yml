@@ -3,7 +3,7 @@ version: ${version}
 api-version: 1.13
 main: com.koletar.jj.mineresetlite.MineResetLite
 author: Boomclaw
-authors: [jjKoletar, VirtualByte, TWWSYesterday, Boomclaw, Ghost_chu]
+authors: [jjKoletar, VirtualByte, TWWSYesterday, Boomclaw, Ghost_chu, leothawne]
 description: A lightweight solution for Mine management.
 softdepend: [Multiverse-Core, PrisonMines, Multiworld, WorldEdit]
 commands:
